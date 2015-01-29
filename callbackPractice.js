@@ -60,7 +60,9 @@ last(names, function(lastName){
 
 
 
-var multiply = function()
+var multiply = function(x,y,cb) {
+  cb(x * y);
+}
 
 multiply(4, 3, function(answer){
   console.log('The answer is ', answer); //should console.log 12
@@ -76,7 +78,17 @@ multiply(4, 3, function(answer){
 
 
 
-  //Code Here for contains
+var contains = function (arr, str, cb) {
+    for (var i = 0; i < arr.length; i++)
+    if (str === arr[i]) {
+        var result = true;
+        break
+    } else {
+        result = false;
+    }
+    cb(result)
+}
+
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 contains(names, 'Colt', function(result){
@@ -96,7 +108,27 @@ contains(names, 'Colt', function(result){
 
 
 
-    //Code Here for uniq
+var uniq = function(arr, cb) {
+  for (var i = 0; i < arr.length; i++)
+    for (var j = 0; j++ < arr.length; j++)
+      if (arr[i] === arr[j]) {
+        arr.splice(arr[i], 1)
+        }
+cb(arr);
+}
+
+or 
+
+var uniq = function(namesArray, callbackFunction){
+  var uniqueObject = {};
+  for (var i = 0; i < namesArray.length; i++) {
+    uniqueObject[namesArray[i]] = null;
+  }
+  for (var key in uniqueObject) {
+    returnArray.push(key);
+  }
+  callbackFunction(returnArray);
+}
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 uniq(names, function(uniqArr){
@@ -128,9 +160,6 @@ each(names, function(item, indice){
 
 
 
-
- //code here for getUserById
-
 var users = [
   {
     id: '12d',
@@ -151,6 +180,14 @@ var users = [
     address: '192 East 32 North'
   },
 ];
+
+var getUserById = function(userArray, userId, callbackFunction){
+  for(var i = 0; i < userArray.length; i++) {
+    if (userArray[i].id === userId) {
+      callbackFunction(userArray[i]);
+    }
+  }
+};
 
 getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
